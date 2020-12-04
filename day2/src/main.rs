@@ -27,11 +27,7 @@ impl CorporatePassword {
     }
 
     fn validate_part_1(&self) -> bool {
-        let num = self
-            .text
-            .chars()
-            .filter_map(|c| if c == self.character { Some(c) } else { None })
-            .count() as u32;
+        let num = self.text.chars().filter(|&c| c == self.character).count() as u32;
         num >= self.first_number && num <= self.second_number
     }
 
@@ -63,26 +59,14 @@ fn main() {
     // Part 1
     let num_valid = read_input()
         .unwrap()
-        .filter_map(|password| {
-            if password.validate_part_1() {
-                Some(password)
-            } else {
-                None
-            }
-        })
+        .filter(|password| password.validate_part_1())
         .count();
     println!("{}", num_valid);
 
     // Part 2
     let num_valid = read_input()
         .unwrap()
-        .filter_map(|password| {
-            if password.validate_part_2() {
-                Some(password)
-            } else {
-                None
-            }
-        })
+        .filter(|password| password.validate_part_2())
         .count();
     println!("{}", num_valid);
 }
